@@ -33,6 +33,7 @@ public class PlayerState
     public virtual void UpdateState()
     {
         xInput = Input.GetAxisRaw("Horizontal");
+        player.anim.SetFloat("yVelocity", rb.velocity.y);
         Debug.Log("Im in state: " + animBoolName);
     }
 
