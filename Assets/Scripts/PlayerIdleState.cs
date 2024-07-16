@@ -19,10 +19,12 @@ public class PlayerIdleState : PlayerState
     }
 
 
-    public override void Update()
+    public override void UpdateState()
     {
-        base.Update();
-        if (Input.GetKeyDown(KeyCode.N)) { 
+        base.UpdateState();
+
+        if (xInput != 0) 
+        { 
             stateMachine.ChangeState(player.moveState);
         }
     }

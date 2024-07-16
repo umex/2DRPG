@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Move info")]
+    public float moveSpeed = 12f;
+
     #region Components
     public Animator anim { get; private set; }
     #endregion
@@ -15,6 +18,7 @@ public class Player : MonoBehaviour
 
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
+    public Rigidbody2D rb { get; private set; }
     #endregion
 
     protected void Awake()
@@ -28,12 +32,20 @@ public class Player : MonoBehaviour
     protected  void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+
         stateMachine.Initialize(idleState);
     }
 
     protected void Update()
     {
-        stateMachine.currentState.Update();
+        stateMachine.currentState.UpdateState();
+    }
+
+    public void SetVelocity(float _xVelocity, float _yVelocity)
+    {
+        rb.velocity = new Vector2(_xVelocity, _yVelocity);
+
     }
 
 }

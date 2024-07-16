@@ -18,10 +18,13 @@ public class PlayerMoveState : PlayerState
         base.Exit();
     }
 
-    public override void Update()
+    public override void UpdateState()
     {
-        base.Update();
-        if (Input.GetKeyDown(KeyCode.N))
+        base.UpdateState();
+
+        player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
+        
+        if (xInput == 0)
         {
             stateMachine.ChangeState(player.idleState);
         }
