@@ -23,7 +23,9 @@ public class PlayerMoveState : PlayerGroundedState
         base.UpdateState();
 
         player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
-        
+        player.FlipController(xInput);
+
+
         if (xInput == 0)
         {
             stateMachine.ChangeState(player.idleState);
