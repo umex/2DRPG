@@ -17,6 +17,15 @@ public class Player : MonoBehaviour
     [SerializeField] private float wallCheckDistance = .8f;
     [SerializeField] protected LayerMask whatIsGround;
 
+    [Header("Dash info")]
+    [SerializeField] private float dashCooldown = .8f;
+    private float dashUsageTimer;
+    public float dashSpeed;
+    public float dashDuration;
+    private float defaultDashSpeed;
+    public float dashDir { get; private set; }
+
+
     public int facingDir { get; private set; } = 1;
     private bool facingRight = true;
 
@@ -32,6 +41,7 @@ public class Player : MonoBehaviour
     public PlayerMoveState moveState { get; private set; }
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAirState airState { get; private set; }
+    public PlayerDashState dashState { get; private set; }
     #endregion
 
     protected void Awake()
@@ -42,6 +52,7 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(this, stateMachine, "Move");
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         airState = new PlayerAirState(this, stateMachine, "Jump");
+        dashState = new PlayerDashState(this, stateMachine, "Dash");
     }
 
     protected  void Start()
@@ -54,6 +65,8 @@ public class Player : MonoBehaviour
 
     protected void Update()
     {
+        // this breaks our state pattern but we need it so we can use it in all situations
+        CheckForDashInput();
         stateMachine.currentState.UpdateState();
     }
 
@@ -95,6 +108,34 @@ public class Player : MonoBehaviour
             Flip();
         }
             
+    }
+    #endregion
+
+    #region Dash
+    private void CheckForDashInput()
+    {
+        dashUsageTimer -= Time.deltaTime;
+
+        if (IsWallDetected())
+            return;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashUsageTimer < 0)
+        {
+            dashUsageTimer = dashCooldown;
+
+            //we want to get the user direction when it happens and use that as a dash direction
+            //we might want to dash in the other way than the one we are facing
+            dashDir = Input.GetAxisRaw("Horizontal");
+
+            if (dashDir == 0) 
+            {
+                // if somebody uses dash while not providing any directional input
+                dashDir = facingDir;
+            }
+
+            // this breaks our state pattern but we need it so we can use it in all situations
+            stateMachine.ChangeState(dashState);
+        }
     }
     #endregion
 

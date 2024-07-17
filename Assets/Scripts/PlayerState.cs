@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// everything in here will be available to every state
 public class PlayerState  
 {
     protected PlayerStateMachine stateMachine;
@@ -32,8 +33,12 @@ public class PlayerState
 
     public virtual void UpdateState()
     {
+
+        stateTimer -= Time.deltaTime;
+
         xInput = Input.GetAxisRaw("Horizontal");
         player.anim.SetFloat("yVelocity", rb.velocity.y);
+        
         Debug.Log("Im in state: " + animBoolName);
     }
 
