@@ -23,6 +23,12 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.UpdateState();
 
+        // player not running if standing in fron of tha wall
+        if (xInput == player.facingDir && player.IsWallDetected())
+        {
+            return;
+        }
+
         if (xInput != 0) 
         { 
             stateMachine.ChangeState(player.moveState);

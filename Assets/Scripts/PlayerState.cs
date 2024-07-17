@@ -37,14 +37,15 @@ public class PlayerState
         stateTimer -= Time.deltaTime;
 
         xInput = Input.GetAxisRaw("Horizontal");
+        yInput = Input.GetAxisRaw("Vertical");
         player.anim.SetFloat("yVelocity", rb.velocity.y);
         
-        Debug.Log("Im in state: " + animBoolName);
+        //Debug.Log("Im in state: " + animBoolName);
     }
 
     public virtual void Exit()
     {
-        Debug.Log("Im exiting state: " + animBoolName);
+        //Debug.Log("Im exiting state: " + animBoolName);
         player.anim.SetBool(animBoolName, false);
     }
 }

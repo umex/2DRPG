@@ -13,7 +13,7 @@ public class PlayerAirState : PlayerState
         base.Enter();
     }
 
-    public override void Exit()
+    public override void Exit() 
     {
         base.Exit();
     }
@@ -25,6 +25,17 @@ public class PlayerAirState : PlayerState
         if (player.IsGroundDetected()) {
             stateMachine.ChangeState(player.idleState);
         }
-            
+
+        if (player.IsWallDetected())
+        {
+            stateMachine.ChangeState(player.wallSlide);
+        }
+
+        // so that we can move left and right when we are in the air
+        if (xInput != 0) 
+        {
+            player.SetVelocity(player.moveSpeed * .8f * xInput, rb.velocity.y);
+        }
+        
     }
 }

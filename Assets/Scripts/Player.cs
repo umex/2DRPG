@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
     public PlayerMoveState moveState { get; private set; }
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAirState airState { get; private set; }
+    public PlayerWallSlideState wallSlide { get; private set; }
     public PlayerDashState dashState { get; private set; }
     #endregion
 
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(this, stateMachine, "Move");
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         airState = new PlayerAirState(this, stateMachine, "Jump");
+        wallSlide = new PlayerWallSlideState(this, stateMachine, "WallSlide");
         dashState = new PlayerDashState(this, stateMachine, "Dash");
     }
 
@@ -68,6 +70,7 @@ public class Player : MonoBehaviour
         // this breaks our state pattern but we need it so we can use it in all situations
         CheckForDashInput();
         stateMachine.currentState.UpdateState();
+        Debug.Log("Is wall detected: " + IsWallDetected());
     }
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
@@ -78,7 +81,7 @@ public class Player : MonoBehaviour
 
     #region Collision
     public virtual bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
-    public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, whatIsGround);
+    public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
 
     private void OnDrawGizmos()
     {
