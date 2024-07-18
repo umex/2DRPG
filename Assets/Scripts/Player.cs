@@ -41,8 +41,11 @@ public class Player : MonoBehaviour
     public PlayerMoveState moveState { get; private set; }
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAirState airState { get; private set; }
-    public PlayerWallSlideState wallSlide { get; private set; }
     public PlayerDashState dashState { get; private set; }
+    public PlayerWallSlideState wallSlide { get; private set; }
+    public PlayerWallJumpState wallJump { get; private set; }
+
+
     #endregion
 
     protected void Awake()
@@ -53,8 +56,9 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(this, stateMachine, "Move");
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         airState = new PlayerAirState(this, stateMachine, "Jump");
-        wallSlide = new PlayerWallSlideState(this, stateMachine, "WallSlide");
         dashState = new PlayerDashState(this, stateMachine, "Dash");
+        wallSlide = new PlayerWallSlideState(this, stateMachine, "WallSlide");
+        wallJump = new PlayerWallJumpState(this, stateMachine, "Jump");
     }
 
     protected  void Start()
@@ -70,6 +74,7 @@ public class Player : MonoBehaviour
         // this breaks our state pattern but we need it so we can use it in all situations
         CheckForDashInput();
         stateMachine.currentState.UpdateState();
+        
         Debug.Log("Is wall detected: " + IsWallDetected());
     }
 
@@ -119,6 +124,7 @@ public class Player : MonoBehaviour
     {
         dashUsageTimer -= Time.deltaTime;
 
+        // whenever we detect a wall we wont be able to dash
         if (IsWallDetected())
             return;
 

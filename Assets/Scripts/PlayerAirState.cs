@@ -21,7 +21,7 @@ public class PlayerAirState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
-
+        player.FlipController(xInput);
         if (player.IsGroundDetected()) {
             stateMachine.ChangeState(player.idleState);
         }

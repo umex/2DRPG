@@ -21,7 +21,14 @@ public class PlayerWallSlideState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
-        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            stateMachine.ChangeState(player.wallJump);
+            // so that other part of the code here does not execute, otherwise the jump is bad
+            return;
+        }
+
         if (player.IsWallDetected() == false)
         {
             stateMachine.ChangeState(player.airState);
@@ -32,6 +39,8 @@ public class PlayerWallSlideState : PlayerState
         {
             stateMachine.ChangeState(player.idleState);
         }
+
+
 
         if (yInput < 0)
         {

@@ -26,7 +26,8 @@ public class PlayerMoveState : PlayerGroundedState
         player.FlipController(xInput);
 
 
-        if (xInput == 0)
+        // player cannot run into the wall
+        if (xInput == 0 || player.IsWallDetected())
         {
             stateMachine.ChangeState(player.idleState);
         }

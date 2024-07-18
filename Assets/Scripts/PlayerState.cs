@@ -11,8 +11,8 @@ public class PlayerState
     protected Rigidbody2D rb;
 
 
-    protected float xInput;
-    protected float yInput;
+    public float xInput;
+    public float yInput;
     private string animBoolName;
 
     protected float stateTimer;
@@ -39,7 +39,10 @@ public class PlayerState
         xInput = Input.GetAxisRaw("Horizontal");
         yInput = Input.GetAxisRaw("Vertical");
         player.anim.SetFloat("yVelocity", rb.velocity.y);
-        
+
+        //Debug.Log("xIput: " + xInput);
+        //Debug.Log("yIput: " + yInput);
+
         //Debug.Log("Im in state: " + animBoolName);
     }
 

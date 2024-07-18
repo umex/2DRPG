@@ -11,8 +11,11 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-    }
 
+        // so that we dont move after jump
+        rb.velocity = new Vector2(0, 0);
+    }
+    
     public override void Exit()
     {
         base.Exit();
