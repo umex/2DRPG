@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool isBusy { get; private set; }
+
+    [Header("Attack details")]
+    public Vector2[] attackMovement;
+    public float counterAttackDuration = .2f;
+
     [Header("Move info")]
     public float moveSpeed = 12f;
     public float jumpForce;
@@ -45,6 +51,7 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState wallSlide { get; private set; }
     public PlayerWallJumpState wallJump { get; private set; }
 
+    public PlayerPrimaryAttackState primaryAttack { get; private set; }
 
     #endregion
 
@@ -59,6 +66,7 @@ public class Player : MonoBehaviour
         dashState = new PlayerDashState(this, stateMachine, "Dash");
         wallSlide = new PlayerWallSlideState(this, stateMachine, "WallSlide");
         wallJump = new PlayerWallJumpState(this, stateMachine, "Jump");
+        primaryAttack = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
     }
 
     protected  void Start()
@@ -84,6 +92,16 @@ public class Player : MonoBehaviour
 
     }
 
+    public IEnumerator BusyFor(float _seconds)
+    {
+        isBusy = true;
+
+        yield return new WaitForSeconds(_seconds);
+        isBusy = false;
+    }
+
+    public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+
     #region Collision
     public virtual bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
     public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
@@ -106,6 +124,7 @@ public class Player : MonoBehaviour
 
     public void FlipController(float _x)
     {
+        Debug.Log("Flip controller called");
         if (_x > 0 && !facingRight) 
         {
             Flip();

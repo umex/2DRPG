@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 102774523}
   - component: {fileID: 102774524}
   - component: {fileID: 102774525}
+  - component: {fileID: 102774526}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -260,6 +261,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &102774526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102774522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65df2f30e4d7f724a90984ce89279f7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &432216018
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,6 +835,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0cc9ab2bea8804ebf020d40bad1606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackMovement:
+  - {x: 2, y: 0}
+  - {x: 2, y: 0}
+  - {x: 3, y: 0}
+  counterAttackDuration: 0.2
   moveSpeed: 6
   jumpForce: 12
   groundCheck: {fileID: 943453333}

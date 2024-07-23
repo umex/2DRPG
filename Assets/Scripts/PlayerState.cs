@@ -29,6 +29,7 @@ public class PlayerState
     {
         rb = player.rb; //so we can use rb directly in states instead of player.rb
         player.anim.SetBool(animBoolName, true);
+        triggerCalled = false;
     }
 
     public virtual void UpdateState()
@@ -50,5 +51,9 @@ public class PlayerState
     {
         //Debug.Log("Im exiting state: " + animBoolName);
         player.anim.SetBool(animBoolName, false);
+    }
+    public virtual void AnimationFinishTrigger()
+    {
+        triggerCalled = true;
     }
 }

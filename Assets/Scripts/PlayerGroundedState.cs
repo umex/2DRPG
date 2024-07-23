@@ -27,6 +27,12 @@ public class PlayerGroundedState : PlayerState
             stateMachine.ChangeState(player.airState);
         }
 
+        // to just press and hold it use Input.GetKey()
+        if (Input.GetKeyDown(KeyCode.Mouse0)) 
+        {
+            stateMachine.ChangeState(player.primaryAttack);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected()) 
         {
