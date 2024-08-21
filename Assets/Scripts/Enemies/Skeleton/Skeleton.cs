@@ -15,6 +15,7 @@ namespace Assets.Scripts.Enemies.Skeleton
 
         public SkeletonIdleState idleState { get; private set; }
         public SkeletonMoveState moveState { get; private set; }
+        public SkeletonBattleState battleState { get; private set; }
         #endregion
 
         protected override void Awake()
@@ -23,6 +24,7 @@ namespace Assets.Scripts.Enemies.Skeleton
 
             idleState = new SkeletonIdleState(this, stateMachine, "Idle", this);
             moveState = new SkeletonMoveState(this, stateMachine, "Move", this);
+            battleState = new SkeletonBattleState(this, stateMachine, "Move", this);
         }
 
         protected override void Start()
