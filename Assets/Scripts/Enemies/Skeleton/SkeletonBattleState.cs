@@ -23,12 +23,22 @@ namespace Assets.Scripts.Enemies.Skeleton
         {
             base.UpdateState();
 
-            if (enemy.IsPlayerDetected()) {
+            if (enemy.IsPlayerDetected())
+            {
+
+                stateTimer = enemy.battleTime;
+
                 if (enemy.IsPlayerDetected().distance < enemy.attackDistance)
                 {
-                    if (CanAttack()) { 
+                    if (CanAttack())
+                    {
                         stateMachine.ChangeState(enemy.attackState);
                     }
+                }
+            }
+            else {
+                if (stateTimer < 0) {
+                    stateMachine.ChangeState(enemy.idleState);
                 }
             }
 
