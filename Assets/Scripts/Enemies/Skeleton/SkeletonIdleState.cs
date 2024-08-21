@@ -27,7 +27,6 @@ public class SkeletonIdleState : EnemyState
     public override void UpdateState()
     {
         base.UpdateState();
-        Debug.Log(stateTimer);
         if (stateTimer < 0)
         {
             stateMachine.ChangeState(enemy.moveState);

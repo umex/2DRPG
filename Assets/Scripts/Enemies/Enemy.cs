@@ -7,9 +7,12 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    [SerializeField] protected LayerMask whatIsPlayer;
+
     [Header("Move info")]
     public float moveSpeed = 1.5f;
     public float idleTime = 2;
+
 
     public EnemyStateMachine stateMachine { get; private set; }
 
@@ -23,5 +26,14 @@ public class Enemy : Entity
     {
         base.Update();
         stateMachine.currentState.UpdateState();
+
+        //Debug.Log(IsPlayerDetected().collider.gameObject.name);
+    }
+
+    public virtual RaycastHit2D IsPlayerDetected()
+    {
+        RaycastHit2D playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsPlayer);
+
+        return playerDetected;
     }
 }
