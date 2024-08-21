@@ -19,6 +19,7 @@ public class Enemy : Entity
     public float attackCooldown;
     public float minAttackCooldown = 1;
     public float maxAttackCooldown = 2;
+    [HideInInspector] public float lastTimeAttacked;
 
     public EnemyStateMachine stateMachine { get; private set; }
 
@@ -32,8 +33,6 @@ public class Enemy : Entity
     {
         base.Update();
         stateMachine.currentState.UpdateState();
-
-        //Debug.Log(IsPlayerDetected().collider.gameObject.name);
     }
 
     public virtual RaycastHit2D IsPlayerDetected()
@@ -52,8 +51,4 @@ public class Enemy : Entity
 
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 
-    public virtual void AnimationSpecialAttackTrigger()
-    {
-
-    }
 }

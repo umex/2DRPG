@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Enemies.Skeleton
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Enemies.Skeleton
 {
     public class SkeletonAttackState : EnemyState
     {
@@ -27,7 +29,7 @@
         public override void Exit()
         {
             base.Exit();
-
+            enemy.lastTimeAttacked = Time.time;
         }
     }
 }

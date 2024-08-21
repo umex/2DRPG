@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Enemies.Skeleton
 {
@@ -31,7 +26,9 @@ namespace Assets.Scripts.Enemies.Skeleton
             if (enemy.IsPlayerDetected()) {
                 if (enemy.IsPlayerDetected().distance < enemy.attackDistance)
                 {
-                    stateMachine.ChangeState(enemy.attackState);
+                    if (CanAttack()) { 
+                        stateMachine.ChangeState(enemy.attackState);
+                    }
                 }
             }
 
@@ -54,6 +51,15 @@ namespace Assets.Scripts.Enemies.Skeleton
             base.Exit();
         }
 
+        private bool CanAttack()
+        {
+            if (Time.time >= enemy.lastTimeAttacked + enemy.attackCooldown)
+            {
+                enemy.lastTimeAttacked = Time.time;
+                return true;
+            }
 
+            return false;
+        }
     }
 }
