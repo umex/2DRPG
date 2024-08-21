@@ -37,7 +37,8 @@ namespace Assets.Scripts.Enemies.Skeleton
                 }
             }
             else {
-                if (stateTimer < 0) {
+                // player losses aggro after certain amount of time or distance
+                if (stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 7) {
                     stateMachine.ChangeState(enemy.idleState);
                 }
             }

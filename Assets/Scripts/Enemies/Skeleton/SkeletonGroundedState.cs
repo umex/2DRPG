@@ -20,7 +20,8 @@ namespace Assets.Scripts.Enemies.Skeleton
         public override void Enter()
         {
             base.Enter();
-
+            //bad for optimization - takes all the obejects in the systems and searches trough them
+            player = GameObject.Find("Player").transform;
         }
 
         public override void Exit()
@@ -32,7 +33,8 @@ namespace Assets.Scripts.Enemies.Skeleton
         {
             base.UpdateState();
 
-            if (enemy.IsPlayerDetected())
+            // changes to aggro state if player is seen or too close behind the enemy
+            if (enemy.IsPlayerDetected() || Vector2.Distance(enemy.transform.position, player.transform.position) < enemy.agroDistance)
             {
                 stateMachine.ChangeState(enemy.battleState);
             }
