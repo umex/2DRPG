@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SkeletonMoveState : SkeletonGroundedState
 {
-    public SkeletonMoveState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Skeleton enemy) : base(_enemyBase, _stateMachine, _animBoolName, enemy)
+    public SkeletonMoveState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Skeleton enemy) : base(_enemyBase, _stateMachine, _animBoolName, enemy)
     {
     }
 
@@ -23,7 +23,7 @@ public class SkeletonMoveState : SkeletonGroundedState
     {
         base.UpdateState();
 
-        enemy.SetVelocity(enemy.moveSpeed * enemy.facingDir, enemy.rb.velocity.y);
+        enemy.SetVelocity(enemy.moveSpeed * enemy.facingDir, rb.velocity.y);
 
         if (enemy.IsWallDetected() || !enemy.IsGroundDetected())
         {

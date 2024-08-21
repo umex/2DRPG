@@ -60,7 +60,6 @@ namespace Assets.Scripts
 
         public void FlipController(float _x)
         {
-            Debug.Log("Flip controller called");
             if (_x > 0 && !facingRight)
             {
                 Flip();
@@ -80,6 +79,7 @@ namespace Assets.Scripts
         public void SetVelocity(float _xVelocity, float _yVelocity)
         {
             rb.velocity = new Vector2(_xVelocity, _yVelocity);
+            FlipController(_xVelocity);
 
         }
 
