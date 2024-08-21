@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 657937282}
   - component: {fileID: 657937283}
   - component: {fileID: 657937284}
+  - component: {fileID: 657937285}
   m_Layer: 7
   m_Name: Animator
   m_TagString: Untagged
@@ -720,6 +721,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &657937285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 657937281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9817787d38fc94ba88ba7add1fb1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &913571130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,7 +1394,7 @@ Transform:
   m_GameObject: {fileID: 941676417}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49, y: 0, z: 0}
+  m_LocalPosition: {x: 0.49, y: -0.194, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7595,6 +7608,11 @@ MonoBehaviour:
     m_Bits: 64
   moveSpeed: 1.5
   idleTime: 2
+  agroDistance: 2
+  attackDistance: 1.5
+  attackCooldown: 0
+  minAttackCooldown: 1
+  maxAttackCooldown: 2
 --- !u!50 &1814506252
 Rigidbody2D:
   serializedVersion: 4
@@ -7801,7 +7819,7 @@ MonoBehaviour:
   - {x: 3, y: 0}
   counterAttackDuration: 0.2
   moveSpeed: 6
-  jumpForce: 12
+  jumpForce: 16
   dashCooldown: 4
   dashSpeed: 25
   dashDuration: 0.3

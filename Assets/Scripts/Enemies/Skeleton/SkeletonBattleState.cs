@@ -28,6 +28,13 @@ namespace Assets.Scripts.Enemies.Skeleton
         {
             base.UpdateState();
 
+            if (enemy.IsPlayerDetected()) {
+                if (enemy.IsPlayerDetected().distance < enemy.attackDistance)
+                {
+                    stateMachine.ChangeState(enemy.attackState);
+                }
+            }
+
 
             // changing movement driection based on player position
             if (player.position.x > enemy.transform.position.x)
