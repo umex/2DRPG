@@ -7,6 +7,8 @@ namespace Assets.Scripts
 
 
         [Header("Collision info")]
+        public Transform attackCheck;
+        public float attackCheckRadius = 1.2f;
         [SerializeField] protected Transform groundCheck;
         [SerializeField] protected float groundCheckDistance = 1;
         [SerializeField] protected Transform wallCheck;
@@ -45,8 +47,13 @@ namespace Assets.Scripts
         {
             Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
             Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance * facingDir, wallCheck.position.y));
+            Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
         }
         #endregion
+
+        public virtual void Damage() {
+            Debug.Log(gameObject.name + " was damaged!");
+        }
 
 
         #region Flip

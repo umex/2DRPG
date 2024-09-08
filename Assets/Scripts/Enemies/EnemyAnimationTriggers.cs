@@ -15,5 +15,18 @@ namespace Assets.Scripts.Enemies
         {
             enemy.AnimationFinishTrigger();
         }
+
+        private void AttackTrigger()
+        {
+            // we will get all colliders but only interact with specific inside of our attackCheck gizmo 
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(enemy.attackCheck.position, enemy.attackCheckRadius);
+            foreach (var hit in colliders)
+            {
+                if (hit.GetComponent<Player>() != null)
+                {
+                    hit.GetComponent<Player>().Damage();
+                }
+            }
+        }
     }
 }
