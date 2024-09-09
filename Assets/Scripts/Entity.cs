@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Effects;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -21,6 +22,7 @@ namespace Assets.Scripts
         #region Components
         public  Animator anim { get; private set; }
         public Rigidbody2D rb { get; private set; }
+        public EntityFX fx { get; private set; }
         #endregion
 
         protected virtual void Awake()
@@ -32,6 +34,7 @@ namespace Assets.Scripts
         {
             anim = GetComponentInChildren<Animator>();
             rb = GetComponent<Rigidbody2D>();
+            fx = GetComponent<EntityFX>();
         }
 
         protected virtual void Update()
@@ -53,6 +56,7 @@ namespace Assets.Scripts
 
         public virtual void Damage() {
             Debug.Log(gameObject.name + " was damaged!");
+            fx.StartCoroutine("FlashFX");
         }
 
 
