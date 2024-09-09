@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Effects;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -15,6 +16,12 @@ namespace Assets.Scripts
         [SerializeField] protected Transform wallCheck;
         [SerializeField] protected float wallCheckDistance = .8f;
         [SerializeField] protected LayerMask whatIsGround;
+
+        [Header("Knockback info")]
+        [SerializeField] protected Vector2 knockbackDirection = new Vector2(7, 12);
+        [SerializeField] protected float knockbackDuration = .07f;
+        protected bool isKnocked;
+        public int knockbackDir { get; private set; }
 
         public int facingDir { get; private set; } = 1;
         protected bool facingRight = true;
@@ -57,6 +64,18 @@ namespace Assets.Scripts
         public virtual void Damage() {
             Debug.Log(gameObject.name + " was damaged!");
             fx.StartCoroutine("FlashFX");
+            StartCoroutine("HitKnockback");
+        }
+
+        protected virtual IEnumerator HitKnockback()
+        {
+            isKnocked = true;
+
+
+            rb.velocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
+
+            yield return new WaitForSeconds(knockbackDuration);
+            isKnocked = false;
         }
 
 
@@ -85,10 +104,18 @@ namespace Assets.Scripts
         #endregion
 
         #region Velocity
-        public void SetZeroVelocity() => rb.velocity = new Vector2(0, 0);
+        public void SetZeroVelocity() {
+            if (isKnocked)
+                return;
+
+            rb.velocity = new Vector2(0, 0);
+        }
 
         public void SetVelocity(float _xVelocity, float _yVelocity)
         {
+            if (isKnocked)
+                return;
+
             rb.velocity = new Vector2(_xVelocity, _yVelocity);
             FlipController(_xVelocity);
 
