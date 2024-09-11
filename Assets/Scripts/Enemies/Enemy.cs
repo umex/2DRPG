@@ -34,6 +34,7 @@ public class Enemy : Entity
     {
         base.Awake();
         stateMachine = new EnemyStateMachine();
+
     }
 
     protected override void Update()
