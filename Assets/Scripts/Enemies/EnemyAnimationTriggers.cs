@@ -28,5 +28,8 @@ namespace Assets.Scripts.Enemies
                 }
             }
         }
+
+        private void OpenCounterWindow() => enemy.OpenCounterAttackWindow();
+        private void CloseCounterWindow() => enemy.CloseCounterAttackWindow();
     }
 }

@@ -46,5 +46,16 @@ namespace Assets.Scripts.Enemies.Skeleton
                 stateMachine.ChangeState(stunnedState);
             }
         }
+
+        public override bool CanBeStunned()
+        {
+            if (base.CanBeStunned())
+            {
+                stateMachine.ChangeState(stunnedState);
+                return true;
+            }
+
+            return false;
+        }
     }
 }
