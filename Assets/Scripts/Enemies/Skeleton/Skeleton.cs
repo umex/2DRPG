@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemies.Skeleton
 {
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Enemies.Skeleton
         public SkeletonMoveState moveState { get; private set; }
         public SkeletonBattleState battleState { get; private set; }
         public SkeletonAttackState attackState { get; private set; }
+        public SkeletonStunnedState stunnedState { get; private set; }
         #endregion
 
         protected override void Awake()
@@ -27,6 +29,7 @@ namespace Assets.Scripts.Enemies.Skeleton
             moveState = new SkeletonMoveState(this, stateMachine, "Move", this);
             battleState = new SkeletonBattleState(this, stateMachine, "Move", this);
             attackState = new SkeletonAttackState(this, stateMachine, "Attack", this);
+            stunnedState = new SkeletonStunnedState(this, stateMachine, "Stunned", this);
         }
 
         protected override void Start()
@@ -38,6 +41,10 @@ namespace Assets.Scripts.Enemies.Skeleton
         protected override void Update()
         {
             base.Update();
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                stateMachine.ChangeState(stunnedState);
+            }
         }
     }
 }
