@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
     public static SkillManager instance;
+    public Dash_Skill dash { get; private set; }
 
     private void Awake()
     {
@@ -11,5 +13,8 @@ public class SkillManager : MonoBehaviour
         else
             instance = this;
     }
-
+    private void Start()
+    {
+        dash = GetComponent<Dash_Skill>();
+    }
 }
