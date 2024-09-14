@@ -22,7 +22,7 @@ public class Player : Entity
     private float defaultDashSpeed;
     public float dashDir { get; private set; }
 
-
+    public SkillManager skill { get; private set; }
 
 
 
@@ -62,6 +62,8 @@ public class Player : Entity
     {
         base.Start();
         stateMachine.Initialize(idleState);
+        stateMachine.Initialize(idleState);
+        skill = SkillManager.instance;
     }
 
     protected override void Update()
