@@ -17,8 +17,6 @@ public class Player : Entity
 
 
     [Header("Dash info")]
-    [SerializeField] private float dashCooldown = .8f;
-    private float dashUsageTimer;
     public float dashSpeed;
     public float dashDuration;
     private float defaultDashSpeed;
@@ -96,16 +94,13 @@ public class Player : Entity
     #region Dash
     private void CheckForDashInput()
     {
-        dashUsageTimer -= Time.deltaTime;
 
         // whenever we detect a wall we wont be able to dash
         if (IsWallDetected())
             return;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashUsageTimer < 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
         {
-            dashUsageTimer = dashCooldown;
-
             //we want to get the user direction when it happens and use that as a dash direction
             //we might want to dash in the other way than the one we are facing
             dashDir = Input.GetAxisRaw("Horizontal");
