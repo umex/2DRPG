@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using UnityEditor.Search;
 using UnityEngine;
 
@@ -15,7 +16,6 @@ public class Clone_Skill_Controller : MonoBehaviour
 
 
     [SerializeField] private float closestEnemyCheckRadius = 25;
-    [SerializeField] private Transform closestEnemy;
 
     private void Awake()
     {
@@ -71,28 +71,14 @@ public class Clone_Skill_Controller : MonoBehaviour
     private void FaceClosestTarget()
     {
         // gets all the object in the distance of 25 of player (oir clone in this matter)
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, closestEnemyCheckRadius);
-
-        float closestDistance = Mathf.Infinity;
-
-        foreach (var hit in colliders)
-        {
-
-            if (hit.GetComponent<Enemy>() != null)
-            {
-                float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
-
-                if (distanceToEnemy < closestDistance)
-                {
-                    closestDistance = distanceToEnemy;
-                    closestEnemy = hit.transform;
-                }
-            }
-        }
+        var closestEnemy = Physics2D.OverlapCircleAll(transform.position, 25)
+            .Where(hit => hit.GetComponent<Enemy>() is not null)
+            .OrderBy(hit => Vector2.Distance(transform.position, hit.transform.position))
+            .FirstOrDefault();
 
         if (closestEnemy != null)
         {
-            if (transform.position.x > closestEnemy.position.x)
+            if (transform.position.x > closestEnemy.GetComponent<Transform>().position.x)
             {
                 transform.Rotate(0, 180, 0);
             }
