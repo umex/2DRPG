@@ -21,7 +21,8 @@ namespace Assets.Scripts.Enemies.Skeleton
         {
             base.Enter();
             //bad for optimization - takes all the obejects in the systems and searches trough them
-            player = GameObject.Find("Player").transform;
+            //player = GameObject.Find("Player").transform;
+            player = PlayerManager.instance.player.transform;
         }
 
         public override void Exit()
