@@ -154,3 +154,4 @@ MonoBehaviour:
   colorLoosingSpeed: 3
   attackCheck: {fileID: 63430251596665041}
   attackCheckRadius: 0.8
+  closestEnemyCheckRadius: 25
