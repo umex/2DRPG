@@ -26,9 +26,10 @@ public class Sword_Skill : Skill
     }
 
 
-        public void CreateSword()
+    public void CreateSword()
     {
         GameObject newSword = Instantiate(swordPrefab, player.transform.position, transform.rotation);
+        // we need controllers to handle scripts on a prefabs that get created at a runtime
         Sword_Skill_Controller newSwordScript = newSword.GetComponent<Sword_Skill_Controller>();
 
 
