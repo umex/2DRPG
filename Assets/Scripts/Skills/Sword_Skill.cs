@@ -7,6 +7,9 @@ public class Sword_Skill : Skill
     [SerializeField] private Vector2 launchForce;
     [SerializeField] private float swordGravity;
 
+
+    private Vector2 finalDir;
+
     public void CreateSword()
     {
         GameObject newSword = Instantiate(swordPrefab, player.transform.position, transform.rotation);
@@ -15,4 +18,15 @@ public class Sword_Skill : Skill
 
         newSwordScript.SetupSword(launchForce, swordGravity, player);
     }
+
+    #region Aim region
+    public Vector2 AimDirection()
+    {
+        Vector2 playerPosition = player.transform.position; //starting point
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //final point
+        Vector2 direction = mousePosition - playerPosition;
+
+        return direction;
+    }
+    #endregion
 }
