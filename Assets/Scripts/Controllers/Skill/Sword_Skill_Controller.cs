@@ -8,6 +8,8 @@ public class Sword_Skill_Controller : MonoBehaviour
     private CircleCollider2D cd;
     private Player player;
 
+    private bool canRotate = true;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -24,6 +26,22 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private void Update()
     {
-        transform.right = rb.velocity;
+        if (canRotate) { 
+            transform.right = rb.velocity;
+        }
+    }
+
+    // is being callde when collider is triggered (Is trigger checkbox)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        canRotate = false;
+        cd.enabled = false;
+
+        rb.isKinematic = true;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        //we made a collided object a child of an object it collided to
+        transform.parent = collision.transform;
+
     }
 }
