@@ -10,11 +10,16 @@ public class PlayerCatchSwordState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        sword = player.sword.transform;
 
-        if (player.transform.position.x > sword.position.x && player.facingDir == 1)
+
+        if (player.transform.position.x > sword.position.x && player.facingDir == 1) { 
             player.Flip();
+        }
         else if (player.transform.position.x < sword.position.x && player.facingDir == -1)
+        {
             player.Flip();
+        }
 
     }
 
@@ -27,5 +32,8 @@ public class PlayerCatchSwordState : PlayerState
     public override void UpdateState()
     {
         base.UpdateState();
+        if (triggerCalled) { 
+            stateMachine.ChangeState(player.idleState);
+        }
     }
 }
