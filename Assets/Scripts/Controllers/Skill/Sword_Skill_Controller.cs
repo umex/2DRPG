@@ -25,6 +25,8 @@ public class Sword_Skill_Controller : MonoBehaviour
         player = _player;
         rb.velocity = _dir;
         rb.gravityScale = _gravityScale;
+
+        anim.SetBool("Rotation", true);
     }
 
     public void ReturnSword()
@@ -33,9 +35,7 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.isKinematic = false;
         transform.parent = null;
         isReturning = true;
-        //rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
-        // sword.skill.setcooldown;
     }
 
     private void Update()
@@ -66,6 +66,7 @@ public class Sword_Skill_Controller : MonoBehaviour
 
         //we made a collided object a child of an object it collided to
         transform.parent = collision.transform;
+        anim.SetBool("Rotation", false);
 
     }
 }
