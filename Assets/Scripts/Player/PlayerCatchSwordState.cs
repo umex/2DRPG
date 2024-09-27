@@ -21,12 +21,14 @@ public class PlayerCatchSwordState : PlayerState
             player.Flip();
         }
 
+        rb.velocity = new Vector2(player.swordReturnImpact * -player.facingDir, rb.velocity.y);
     }
 
     public override void Exit()
     {
         base.Exit();
 
+        player.StartCoroutine("BusyFor", .1f);
     }
 
     public override void UpdateState()
