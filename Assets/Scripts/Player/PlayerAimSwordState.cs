@@ -24,6 +24,7 @@ public class PlayerAimSwordState : PlayerState
     {
         base.UpdateState();
 
+        //so that we dont move while in this state
         player.SetZeroVelocity();
 
         if (Input.GetKeyUp(KeyCode.Mouse1))

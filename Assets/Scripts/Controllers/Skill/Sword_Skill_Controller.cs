@@ -31,8 +31,9 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     public void ReturnSword()
     {
+        //we dont want sword to contiune falling when called back
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
         
-        rb.isKinematic = false;
         transform.parent = null;
         isReturning = true;
 
