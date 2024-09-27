@@ -9,6 +9,9 @@ public class Sword_Skill_Controller : MonoBehaviour
     private Player player;
 
     private bool canRotate = true;
+    private bool isReturning;
+
+    private float returnSpeed = 12;
 
     private void Awake()
     {
@@ -24,10 +27,31 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.gravityScale = _gravityScale;
     }
 
+    public void ReturnSword()
+    {
+        
+        rb.isKinematic = false;
+        transform.parent = null;
+        isReturning = true;
+        //rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        // sword.skill.setcooldown;
+    }
+
     private void Update()
     {
         if (canRotate) { 
             transform.right = rb.velocity;
+        }
+
+        if (isReturning)
+        {
+            //we return the sword to the player
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, returnSpeed * Time.deltaTime);
+
+            if (Vector2.Distance(transform.position, player.transform.position) < 1) { 
+                player.ClearTheSword();
+            }
         }
     }
 
