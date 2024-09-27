@@ -29,5 +29,16 @@ public class PlayerAimSwordState : PlayerState
         {
             stateMachine.ChangeState(player.idleState);
         }
+
+        // we are getting and flipping a character based on a mouse position
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if (player.transform.position.x > mousePosition.x && player.facingDir == 1) { 
+            player.Flip();
+        }
+        else if (player.transform.position.x < mousePosition.x && player.facingDir == -1)
+        {
+            player.Flip();
+        }
     }
 }
