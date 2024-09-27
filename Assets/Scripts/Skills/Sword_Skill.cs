@@ -34,6 +34,7 @@ public class Sword_Skill : Skill
 
 
         newSwordScript.SetupSword(finalDir, swordGravity, player);
+        player.AssignNewSword(newSword);
 
         DotsActive(false);
     }

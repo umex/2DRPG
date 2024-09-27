@@ -25,7 +25,7 @@ public class PlayerGroundedState : PlayerState
             stateMachine.ChangeState(player.airState);
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1)) { 
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !player.sword) { 
             stateMachine.ChangeState(player.aimSowrd);
         }
 
