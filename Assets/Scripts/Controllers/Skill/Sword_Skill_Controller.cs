@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Sword_Skill_Controller : MonoBehaviour
@@ -13,11 +14,20 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private float returnSpeed = 12;
 
+    [Header("Bounce info")]
+    private float bounceSpeed = 20;
+    private bool isBouncing = true;
+    private int bounceAmount = 4;
+    private List<Transform> enemyTarget;
+    private int targetIndex;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         cd = GetComponent<CircleCollider2D>();
+
+        enemyTarget = new List<Transform>();
     }
 
     public void SetupSword(Vector2 _dir, float _gravityScale, Player _player)
@@ -41,7 +51,8 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private void Update()
     {
-        if (canRotate) { 
+        if (canRotate)
+        {
             transform.right = rb.velocity;
         }
 
@@ -50,14 +61,59 @@ public class Sword_Skill_Controller : MonoBehaviour
             //we return the sword to the player
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, returnSpeed * Time.deltaTime);
 
-            if (Vector2.Distance(transform.position, player.transform.position) < 1) { 
+            if (Vector2.Distance(transform.position, player.transform.position) < 1)
+            {
                 player.CatchTheSword();
             }
         }
+
+        if (isBouncing && enemyTarget.Count > 0)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, enemyTarget[targetIndex].position, bounceSpeed * Time.deltaTime);
+            
+            //chooses another target after it reaches a first target
+            if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
+            {
+                targetIndex++;
+                bounceAmount--;
+
+                if (bounceAmount <= 0)
+                {
+                    isBouncing = false;
+                    isReturning = true;
+                }
+
+                if (targetIndex >= enemyTarget.Count) { 
+                    targetIndex = 0;
+                }
+            }
+        }
+
     }
 
     // is being callde when collider is triggered (Is trigger checkbox)
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        StuckInto(collision);
+
+        if (collision.GetComponent<Enemy>() != null)
+        {
+            if (isBouncing && enemyTarget.Count <= 0)
+            {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 10);
+
+                foreach (var hit in colliders)
+                {
+                    //we fill the list when we hit the target
+                    if (hit.GetComponent<Enemy>() != null)
+                        enemyTarget.Add(hit.transform);
+                }
+            }
+        }
+
+    }
+
+    private void StuckInto(Collider2D collision)
     {
         canRotate = false;
         cd.enabled = false;
@@ -65,9 +121,11 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.isKinematic = true;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
+        if (isBouncing)
+            return;
+
         //we made a collided object a child of an object it collided to
         transform.parent = collision.transform;
         anim.SetBool("Rotation", false);
-
     }
 }
