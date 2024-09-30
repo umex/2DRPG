@@ -71,7 +71,6 @@ namespace Assets.Scripts
         {
             isKnocked = true;
 
-
             rb.velocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
 
             yield return new WaitForSeconds(knockbackDuration);

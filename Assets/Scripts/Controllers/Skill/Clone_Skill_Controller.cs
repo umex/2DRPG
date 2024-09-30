@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
-using UnityEditor.Search;
+﻿using System.Linq;
 using UnityEngine;
 
 public class Clone_Skill_Controller : MonoBehaviour
