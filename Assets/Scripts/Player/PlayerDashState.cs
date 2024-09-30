@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class PlayerDashState : PlayerState
 {
@@ -37,7 +34,7 @@ public class PlayerDashState : PlayerState
 
 
 
-        if (stateTimer < 0) 
+        if (stateTimer < 0)
         {
             stateMachine.ChangeState(player.idleState);
         }

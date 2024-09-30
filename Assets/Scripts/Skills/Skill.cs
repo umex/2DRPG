@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public  class Skill : MonoBehaviour
+public class Skill : MonoBehaviour
 {
     [SerializeField] public float cooldown;
     public float cooldownTimer;

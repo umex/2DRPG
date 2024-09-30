@@ -77,7 +77,7 @@ public class Player : Entity
         // this breaks our state pattern but we need it so we can use it in all situations
         CheckForDashInput();
         stateMachine.currentState.UpdateState();
-        
+
         Debug.Log("Is wall detected: " + IsWallDetected());
     }
     public void AssignNewSword(GameObject _newSword)
@@ -119,7 +119,7 @@ public class Player : Entity
             //we might want to dash in the other way than the one we are facing
             dashDir = Input.GetAxisRaw("Horizontal");
 
-            if (dashDir == 0) 
+            if (dashDir == 0)
             {
                 // if somebody uses dash while not providing any directional input
                 dashDir = facingDir;

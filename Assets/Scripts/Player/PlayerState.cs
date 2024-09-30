@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // everything in here will be available to every state
-public class PlayerState  
+public class PlayerState
 {
     protected PlayerStateMachine stateMachine;
     protected Player player;
