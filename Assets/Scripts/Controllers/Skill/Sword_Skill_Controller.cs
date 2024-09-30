@@ -15,9 +15,9 @@ public class Sword_Skill_Controller : MonoBehaviour
     private float returnSpeed = 12;
 
     [Header("Bounce info")]
-    private float bounceSpeed = 20;
-    private bool isBouncing = true;
-    private int bounceAmount = 4;
+    private float bounceSpeed;
+    private bool isBouncing;
+    private int bounceAmount;
     private List<Transform> enemyTarget;
     private int targetIndex;
 
@@ -38,6 +38,17 @@ public class Sword_Skill_Controller : MonoBehaviour
 
         anim.SetBool("Rotation", true);
     }
+
+    public void SetupBounce(bool _isBouncing, int _amountOfBounces, float _bounceSpeed)
+    {
+        isBouncing = _isBouncing;
+        bounceAmount = _amountOfBounces;
+        bounceSpeed = _bounceSpeed;
+
+
+        enemyTarget = new List<Transform>();
+    }
+
 
     public void ReturnSword()
     {
@@ -67,10 +78,16 @@ public class Sword_Skill_Controller : MonoBehaviour
             }
         }
 
+        BounceLogic();
+
+    }
+
+    private void BounceLogic()
+    {
         if (isBouncing && enemyTarget.Count > 0)
         {
             transform.position = Vector2.MoveTowards(transform.position, enemyTarget[targetIndex].position, bounceSpeed * Time.deltaTime);
-            
+
             //chooses another target after it reaches a first target
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
             {
@@ -83,12 +100,12 @@ public class Sword_Skill_Controller : MonoBehaviour
                     isReturning = true;
                 }
 
-                if (targetIndex >= enemyTarget.Count) { 
+                if (targetIndex >= enemyTarget.Count)
+                {
                     targetIndex = 0;
                 }
             }
         }
-
     }
 
     // is being callde when collider is triggered (Is trigger checkbox)

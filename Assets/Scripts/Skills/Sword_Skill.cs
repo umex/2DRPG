@@ -1,11 +1,25 @@
 ﻿using UnityEngine;
 
+public enum SwordType
+{
+    Regular,
+    Bounce,
+    Pierce,
+    Spin
+}
 public class Sword_Skill : Skill
 {
+    public SwordType swordType = SwordType.Regular;
+
     [Header("Skill info")]
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce;
     [SerializeField] private float swordGravity;
+
+    [Header("Bounce info")]
+    [SerializeField] private int bounceAmount;
+    [SerializeField] private float bounceGravity;
+    [SerializeField] private float bounceSpeed;
 
 
     private Vector2 finalDir;
@@ -32,6 +46,10 @@ public class Sword_Skill : Skill
         // we need controllers to handle scripts on a prefabs that get created at a runtime
         Sword_Skill_Controller newSwordScript = newSword.GetComponent<Sword_Skill_Controller>();
 
+        if (swordType == SwordType.Bounce)
+        {
+            newSwordScript.SetupBounce(true, bounceAmount, bounceSpeed);
+        }
 
         newSwordScript.SetupSword(finalDir, swordGravity, player);
         player.AssignNewSword(newSword);
