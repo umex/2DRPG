@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public enum SwordType
 {
@@ -21,6 +22,10 @@ public class Sword_Skill : Skill
     [SerializeField] private float bounceGravity;
     [SerializeField] private float bounceSpeed;
 
+    [Header("Peirce info")]
+    [SerializeField] private int pierceAmount;
+    [SerializeField] private float pierceGravity;
+
 
     private Vector2 finalDir;
 
@@ -37,6 +42,7 @@ public class Sword_Skill : Skill
         base.Start();
 
         GenereateDots();
+        SetupGravity();
     }
 
 
@@ -49,12 +55,22 @@ public class Sword_Skill : Skill
         if (swordType == SwordType.Bounce)
         {
             newSwordScript.SetupBounce(true, bounceAmount, bounceSpeed);
+        } else if (swordType == SwordType.Pierce)
+        {
+            newSwordScript.SetupPierce(pierceAmount);
         }
 
         newSwordScript.SetupSword(finalDir, swordGravity, player);
         player.AssignNewSword(newSword);
 
         DotsActive(false);
+    }
+    private void SetupGravity()
+    {
+        if (swordType == SwordType.Bounce)
+            swordGravity = bounceGravity;
+        else if (swordType == SwordType.Pierce)
+            swordGravity = pierceGravity;
     }
 
     protected override void Update()

@@ -21,6 +21,9 @@ public class Sword_Skill_Controller : MonoBehaviour
     private List<Transform> enemyTarget;
     private int targetIndex;
 
+    [Header("Pierce info")]
+    private float pierceAmount;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -36,6 +39,11 @@ public class Sword_Skill_Controller : MonoBehaviour
         rb.velocity = _dir;
         rb.gravityScale = _gravityScale;
 
+        if (pierceAmount <= 0)
+        {
+            anim.SetBool("Rotation", true);
+        }
+
         anim.SetBool("Rotation", true);
     }
 
@@ -49,12 +57,17 @@ public class Sword_Skill_Controller : MonoBehaviour
         enemyTarget = new List<Transform>();
     }
 
+    public void SetupPierce(int _pierceAmount)
+    {
+        pierceAmount = _pierceAmount;
+    }
+
 
     public void ReturnSword()
     {
         //we dont want sword to contiune falling when called back
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        
+
         transform.parent = null;
         isReturning = true;
 
@@ -132,6 +145,12 @@ public class Sword_Skill_Controller : MonoBehaviour
 
     private void StuckInto(Collider2D collision)
     {
+        if (pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
+        {
+            pierceAmount--;
+            return;
+        }
+
         canRotate = false;
         cd.enabled = false;
 
