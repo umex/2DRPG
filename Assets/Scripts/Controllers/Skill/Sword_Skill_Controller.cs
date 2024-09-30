@@ -44,7 +44,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             anim.SetBool("Rotation", true);
         }
 
-        anim.SetBool("Rotation", true);
+        anim.SetBool("Rotation", false);
     }
 
     public void SetupBounce(bool _isBouncing, int _amountOfBounces, float _bounceSpeed)

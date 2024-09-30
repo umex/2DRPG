@@ -701,7 +701,7 @@ MonoBehaviour:
   knockbackDuration: 0.07
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   moveSpeed: 1.5
   idleTime: 2
   battleTime: 7
@@ -9146,7 +9146,7 @@ MonoBehaviour:
   knockbackDuration: 0.07
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   moveSpeed: 1.5
   idleTime: 2
   battleTime: 7
@@ -9711,7 +9711,7 @@ MonoBehaviour:
   knockbackDuration: 0.07
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   moveSpeed: 1.5
   idleTime: 2
   battleTime: 7
@@ -10132,7 +10132,7 @@ MonoBehaviour:
   knockbackDuration: 0.07
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   moveSpeed: 1.5
   idleTime: 2
   battleTime: 7
