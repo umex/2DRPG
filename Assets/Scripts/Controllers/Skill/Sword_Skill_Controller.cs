@@ -126,6 +126,8 @@ public class Sword_Skill_Controller : MonoBehaviour
     {
         StuckInto(collision);
 
+        collision.GetComponent<Enemy>()?.Damage();
+
         if (collision.GetComponent<Enemy>() != null)
         {
             if (isBouncing && enemyTarget.Count <= 0)
