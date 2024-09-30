@@ -163,7 +163,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             {
                 spinTimer -= Time.deltaTime;
 
-                //
+                //sword rotates into the direction it was thrown
                 transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + spinDirection, transform.position.y), 1.5f * Time.deltaTime);
 
                 if (spinTimer < 0)
