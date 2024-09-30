@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum SwordType
 {
@@ -25,6 +24,13 @@ public class Sword_Skill : Skill
     [Header("Peirce info")]
     [SerializeField] private int pierceAmount;
     [SerializeField] private float pierceGravity;
+
+    [Header("Spin info")]
+    [SerializeField] private float hitCooldown = .35f;
+    [SerializeField] private float maxTravelDistance = 7;
+    [SerializeField] private float spinDuration = 2;
+    [SerializeField] private float spinGravity = 1;
+
 
 
     private Vector2 finalDir;
@@ -55,9 +61,14 @@ public class Sword_Skill : Skill
         if (swordType == SwordType.Bounce)
         {
             newSwordScript.SetupBounce(true, bounceAmount, bounceSpeed);
-        } else if (swordType == SwordType.Pierce)
+        }
+        else if (swordType == SwordType.Pierce)
         {
             newSwordScript.SetupPierce(pierceAmount);
+        }
+        else if (swordType == SwordType.Spin)
+        {
+            newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration, hitCooldown);
         }
 
         newSwordScript.SetupSword(finalDir, swordGravity, player);
@@ -68,15 +79,24 @@ public class Sword_Skill : Skill
     private void SetupGravity()
     {
         if (swordType == SwordType.Bounce)
+        {
             swordGravity = bounceGravity;
+        }
         else if (swordType == SwordType.Pierce)
+        {
             swordGravity = pierceGravity;
+        }
+        else if (swordType == SwordType.Spin)
+        {
+            swordGravity = spinGravity;
+        }
     }
 
     protected override void Update()
     {
         //when we release the button
-        if (Input.GetKeyUp(KeyCode.Mouse1)) { 
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
             finalDir = new Vector2(AimDirection().normalized.x * launchForce.x, AimDirection().normalized.y * launchForce.y);
         }
 
@@ -88,7 +108,7 @@ public class Sword_Skill : Skill
                 dots[i].transform.position = DotsPosition(i * spaceBeetwenDots);
             }
         }
-        
+
     }
 
     #region Aim region
@@ -122,7 +142,7 @@ public class Sword_Skill : Skill
     private Vector2 DotsPosition(float t)
     {
         // what we are doing here is gettind direction and applying gravity
-        Vector2 position = (Vector2)player.transform.position + 
+        Vector2 position = (Vector2)player.transform.position +
                             new Vector2(AimDirection().normalized.x * launchForce.x, AimDirection().normalized.y * launchForce.y) * t + .5f * (Physics2D.gravity * swordGravity) * (t * t);
 
         return position;
