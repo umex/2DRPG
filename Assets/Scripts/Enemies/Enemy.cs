@@ -33,6 +33,8 @@ public class Enemy : Entity
         base.Awake();
         stateMachine = new EnemyStateMachine();
 
+        defaultMoveSpeed = moveSpeed;
+
     }
 
     protected override void Update()

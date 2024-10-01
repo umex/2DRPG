@@ -557,7 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   cooldownTimer: 0
-  swordType: 3
+  swordType: 0
   swordPrefab: {fileID: 933301371706003315, guid: a9b5715a21dd09c41b660367b5d243ac, type: 3}
   launchForce: {x: 25, y: 15}
   swordGravity: 3
@@ -566,6 +566,7 @@ MonoBehaviour:
   bounceSpeed: 3
   pierceAmount: 0
   pierceGravity: 0
+  hitCooldown: 0.35
   maxTravelDistance: 7
   spinDuration: 2
   spinGravity: 1
@@ -694,13 +695,13 @@ MonoBehaviour:
   attackCheck: {fileID: 941607916}
   attackCheckRadius: 1.5
   groundCheck: {fileID: 1667050067}
-  groundCheckDistance: 0.4
+  groundCheckDistance: 1
   wallCheck: {fileID: 91383914}
   wallCheckDistance: 0.8
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  knockbackDirection: {x: 7, y: 12}
+  knockbackDirection: {x: 2, y: 1}
   knockbackDuration: 0.07
   whatIsPlayer:
     serializedVersion: 2
@@ -9139,13 +9140,13 @@ MonoBehaviour:
   attackCheck: {fileID: 1538312076}
   attackCheckRadius: 1.5
   groundCheck: {fileID: 2004276614}
-  groundCheckDistance: 0.4
+  groundCheckDistance: 1
   wallCheck: {fileID: 1659033590}
   wallCheckDistance: 0.8
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  knockbackDirection: {x: 7, y: 12}
+  knockbackDirection: {x: 2, y: 1}
   knockbackDuration: 0.07
   whatIsPlayer:
     serializedVersion: 2
@@ -9704,13 +9705,13 @@ MonoBehaviour:
   attackCheck: {fileID: 1080740650}
   attackCheckRadius: 1.5
   groundCheck: {fileID: 1746126407}
-  groundCheckDistance: 0.4
+  groundCheckDistance: 1
   wallCheck: {fileID: 941676418}
   wallCheckDistance: 0.8
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  knockbackDirection: {x: 7, y: 12}
+  knockbackDirection: {x: 2, y: 1}
   knockbackDuration: 0.07
   whatIsPlayer:
     serializedVersion: 2
@@ -10125,13 +10126,13 @@ MonoBehaviour:
   attackCheck: {fileID: 262194816}
   attackCheckRadius: 1.5
   groundCheck: {fileID: 949811282}
-  groundCheckDistance: 0.4
+  groundCheckDistance: 1
   wallCheck: {fileID: 559427040}
   wallCheckDistance: 0.8
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  knockbackDirection: {x: 7, y: 12}
+  knockbackDirection: {x: 2, y: 1}
   knockbackDuration: 0.07
   whatIsPlayer:
     serializedVersion: 2
