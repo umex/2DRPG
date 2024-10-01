@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -9,6 +10,7 @@ public class Enemy : Entity
     public float moveSpeed = 1.5f;
     public float idleTime = 2;
     public float battleTime = 7;
+    private float defaultMoveSpeed;
 
     [Header("Attack info")]
     public float agroDistance = 2;
@@ -54,6 +56,31 @@ public class Enemy : Entity
     }
 
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
+
+    public virtual void FreezeTime(bool _timeFrozen)
+    {
+        if (_timeFrozen)
+        {
+            moveSpeed = 0;
+            anim.speed = 0;
+        }
+        else
+        {
+            moveSpeed = defaultMoveSpeed;
+            anim.speed = 1;
+        }
+    }
+
+    public virtual void FreezeTimeFor(float _duration) => StartCoroutine(FreezeTimerCoroutine(_duration));
+
+    protected virtual IEnumerator FreezeTimerCoroutine(float _seconds)
+    {
+        FreezeTime(true);
+
+        yield return new WaitForSeconds(_seconds);
+
+        FreezeTime(false);
+    }
 
     #region Counter Attack Window
     public virtual void OpenCounterAttackWindow()

@@ -205,6 +205,11 @@ public class Sword_Skill_Controller : MonoBehaviour
         StuckInto(collision);
 
         collision.GetComponent<Enemy>()?.Damage();
+        if (collision.GetComponent<Enemy>() != null)
+        {
+            Enemy enemy = collision.GetComponent<Enemy>();
+            SwordSkillDamage(enemy);
+        }
 
         SetupTargetForBounce(collision);
 
@@ -254,5 +259,11 @@ public class Sword_Skill_Controller : MonoBehaviour
         //we made a collided object a child of an object it collided to
         transform.parent = collision.transform;
         anim.SetBool("Rotation", false);
+    }
+
+    private void SwordSkillDamage(Enemy enemy)
+    {
+        enemy.Damage();
+        enemy.StartCoroutine("FreezeTimeFor", .7f);
     }
 }
