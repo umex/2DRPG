@@ -134,8 +134,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
             {
 
-                enemyTarget[targetIndex].GetComponent<Enemy>()?.Damage();
-                enemyTarget[targetIndex].GetComponent<Enemy>()?.StartCoroutine("FreezeTimeFor", freezeTimeDuration);
+                SwordSkillDamage(enemyTarget[targetIndex].GetComponent<Enemy>());
 
                 targetIndex++;
                 bounceAmount--;
@@ -188,10 +187,13 @@ public class Sword_Skill_Controller : MonoBehaviour
 
                     foreach (var hit in colliders)
                     {
-                        hit.GetComponent<Enemy>()?.Damage();
+                        if(hit.GetComponent<Enemy>() != null)
+                        {
+                            SwordSkillDamage(hit.GetComponent<Enemy>());
+                        }
                     }
                 }
-                
+
             }
         }
     }
@@ -246,9 +248,10 @@ public class Sword_Skill_Controller : MonoBehaviour
             return;
         }
 
-        if (isSpinning) {
+        if (isSpinning)
+        {
             StopWhenSpinning();
-            return; 
+            return;
         }
 
 
