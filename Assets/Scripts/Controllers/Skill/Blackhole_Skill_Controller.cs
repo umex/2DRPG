@@ -31,16 +31,28 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         {
             collision.GetComponent<Enemy>().FreezeTime(true);
 
-            //Quaternion.identity cause we dont want to rotate it
-            GameObject newHotKey = Instantiate(hotKeyPrefab, collision.transform.position + new Vector3(0, 2), Quaternion.identity);
-
-            KeyCode choosenKey = keyCodeList[Random.Range(0, keyCodeList.Count)];
-            keyCodeList.Remove(choosenKey); //so that we cannot chose it anymore
-
-            Blackhole_HotKey_Controller newHotKeyScript = newHotKey.GetComponent<Blackhole_HotKey_Controller>();
-
-            newHotKeyScript.SetupHotKey(choosenKey, collision.transform, this);
+            CreateHotKey(collision);
         }
+    }
+
+    private void CreateHotKey(Collider2D collision)
+    {
+        if (keyCodeList.Count <= 0)
+        {
+            Debug.LogWarning("Not enough hot keys in a key code list!");
+            return;
+        }
+
+
+        //Quaternion.identity cause we dont want to rotate it
+        GameObject newHotKey = Instantiate(hotKeyPrefab, collision.transform.position + new Vector3(0, 2), Quaternion.identity);
+
+        KeyCode choosenKey = keyCodeList[Random.Range(0, keyCodeList.Count)];
+        keyCodeList.Remove(choosenKey); //so that we cannot chose it anymore
+
+        Blackhole_HotKey_Controller newHotKeyScript = newHotKey.GetComponent<Blackhole_HotKey_Controller>();
+
+        newHotKeyScript.SetupHotKey(choosenKey, collision.transform, this);
     }
 
     public void AddEnemyToList(Transform _enemyTransform) => targets.Add(_enemyTransform);
