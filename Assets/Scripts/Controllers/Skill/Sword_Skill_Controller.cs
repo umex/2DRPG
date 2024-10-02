@@ -45,6 +45,10 @@ public class Sword_Skill_Controller : MonoBehaviour
 
         enemyTarget = new List<Transform>();
     }
+    private void DestroyMe()
+    {
+        Destroy(gameObject);
+    }
 
     public void SetupSword(Vector2 _dir, float _gravityScale, Player _player, float _freezeTimeDuration, float _returnSpeed)
     {
@@ -65,6 +69,9 @@ public class Sword_Skill_Controller : MonoBehaviour
         spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
 
         anim.SetBool("Rotation", false);
+
+        //invokes the method in 7 seconds
+        Invoke("DestroyMe", 7);
     }
 
     public void SetupBounce(bool _isBouncing, int _amountOfBounces, float _bounceSpeed)
