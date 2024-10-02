@@ -15,6 +15,8 @@ public class Sword_Skill : Skill
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce;
     [SerializeField] private float swordGravity;
+    [SerializeField] private float freezeTimeDuration;
+    [SerializeField] private float returnSpeed;
 
     [Header("Bounce info")]
     [SerializeField] private int bounceAmount;
@@ -71,7 +73,7 @@ public class Sword_Skill : Skill
             newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration, hitCooldown);
         }
 
-        newSwordScript.SetupSword(finalDir, swordGravity, player);
+        newSwordScript.SetupSword(finalDir, swordGravity, player, freezeTimeDuration, returnSpeed);
         player.AssignNewSword(newSword);
 
         DotsActive(false);

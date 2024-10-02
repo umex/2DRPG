@@ -13,6 +13,7 @@ public class Sword_Skill_Controller : MonoBehaviour
     private bool isReturning;
 
     private float returnSpeed = 12;
+    private float freezeTimeDuration;
 
     [Header("Bounce info")]
     private float bounceSpeed;
@@ -45,11 +46,14 @@ public class Sword_Skill_Controller : MonoBehaviour
         enemyTarget = new List<Transform>();
     }
 
-    public void SetupSword(Vector2 _dir, float _gravityScale, Player _player)
+    public void SetupSword(Vector2 _dir, float _gravityScale, Player _player, float _freezeTimeDuration, float _returnSpeed)
     {
         player = _player;
         rb.velocity = _dir;
         rb.gravityScale = _gravityScale;
+
+        freezeTimeDuration = _freezeTimeDuration;
+        returnSpeed = _returnSpeed;
 
         if (pierceAmount <= 0)
         {
@@ -131,6 +135,7 @@ public class Sword_Skill_Controller : MonoBehaviour
             {
 
                 enemyTarget[targetIndex].GetComponent<Enemy>()?.Damage();
+                enemyTarget[targetIndex].GetComponent<Enemy>()?.StartCoroutine("FreezeTimeFor", freezeTimeDuration);
 
                 targetIndex++;
                 bounceAmount--;
@@ -264,6 +269,6 @@ public class Sword_Skill_Controller : MonoBehaviour
     private void SwordSkillDamage(Enemy enemy)
     {
         enemy.Damage();
-        enemy.StartCoroutine("FreezeTimeFor", .7f);
+        enemy.StartCoroutine("FreezeTimeFor", freezeTimeDuration);
     }
 }
