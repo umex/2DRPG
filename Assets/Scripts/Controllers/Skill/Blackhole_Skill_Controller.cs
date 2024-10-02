@@ -19,4 +19,11 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Enemy>() != null)
+        {
+            collision.GetComponent<Enemy>().FreezeTime(true);
+        }
+    }
 }
