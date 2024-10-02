@@ -62,13 +62,10 @@ public class Sword_Skill_Controller : MonoBehaviour
         if (pierceAmount <= 0)
         {
             anim.SetBool("Rotation", true);
-            return;
         }
 
 
         spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
-
-        anim.SetBool("Rotation", false);
 
         //invokes the method in 7 seconds
         Invoke("DestroyMe", 7);

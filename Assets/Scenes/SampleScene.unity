@@ -557,7 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   cooldownTimer: 0
-  swordType: 0
+  swordType: 3
   swordPrefab: {fileID: 933301371706003315, guid: a9b5715a21dd09c41b660367b5d243ac, type: 3}
   launchForce: {x: 25, y: 15}
   swordGravity: 3
