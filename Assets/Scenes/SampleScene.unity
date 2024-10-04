@@ -9316,7 +9316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hotKeyPrefab: {fileID: 133746156}
-  keyCodeList: 7100000077000000650000007200000074000000
+  keyCodeList: 710000007700000065000000
   maxSize: 15
   growSpeed: 1
   canGrow: 0

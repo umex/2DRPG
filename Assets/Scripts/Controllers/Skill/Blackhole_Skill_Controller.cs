@@ -55,6 +55,12 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             CreateHotKey(collision);
         }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Enemy>() != null) { 
+            collision.GetComponent<Enemy>().FreezeTime(false);
+        }
+    }
 
     private void CreateHotKey(Collider2D collision)
     {
@@ -64,8 +70,8 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             return;
         }
 
-        // so that we prevent creation of a hotkey if 
-        if (cloneAttackReleased) { return; };
+        // so that we prevent creation of a hotkey if enemy walks later into a blackhole
+        if (!canCreateHotKeys) { return; };
 
 
 
