@@ -6,16 +6,23 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     [SerializeField] private GameObject hotKeyPrefab;
     [SerializeField] private List<KeyCode> keyCodeList;
 
-    public float maxSize= 15;
-    public float growSpeed= 1;
+    public float maxSize = 15;
+    public float growSpeed = 1;
 
     public bool canGrow = true;
+    private bool canAttack;
+
+    private int amountOfAttacks = 3;
+    private float cloneAttackCooldown = .3f;
+    private float cloneAttackTimer;
 
     public List<Transform> targets = new List<Transform>();
 
     private void Update()
     {
+        cloneAttackTimer -= Time.deltaTime;
 
+        CloneAttackLogic();
 
         if (canGrow)
         {
@@ -55,5 +62,31 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         newHotKeyScript.SetupHotKey(choosenKey, collision.transform, this);
     }
 
+    private void CloneAttackLogic()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            canAttack = true;
+        }
+
+        if (cloneAttackTimer < 0 && canAttack)
+        {
+            cloneAttackTimer = cloneAttackCooldown;
+
+            int randomIndex = Random.Range(0, targets.Count);
+
+            float xOffset;
+
+            if (Random.Range(0, 100) > 50)
+                xOffset = 2;
+            else
+                xOffset = -2;
+
+            SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3(xOffset, 0));
+        }
+    }
+
     public void AddEnemyToList(Transform _enemyTransform) => targets.Add(_enemyTransform);
+
+
 }
