@@ -6,8 +6,8 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     [SerializeField] private GameObject hotKeyPrefab;
     [SerializeField] private List<KeyCode> keyCodeList;
 
-    public float maxSize = 15;
-    public float growSpeed = 1;
+    private float maxSize = 15;
+    private float growSpeed = 1;
     private float shrinkSpeed = 1;
 
     public bool canGrow = true;
@@ -21,6 +21,15 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
     public List<Transform> targets = new List<Transform>();
     private List<GameObject> createdHotKey = new List<GameObject>();
+
+    public void SetupBlackhole(float _maxSize, float _growSpeed, float _shrinkSpeed, int _amountOfAttacks, float _cloneAttackCooldown)
+    {
+        maxSize = _maxSize;
+        growSpeed = _growSpeed;
+        shrinkSpeed = _shrinkSpeed;
+        amountOfAttacks = _amountOfAttacks;
+        cloneAttackCooldown = _cloneAttackCooldown;
+    }
 
     private void Update()
     {
