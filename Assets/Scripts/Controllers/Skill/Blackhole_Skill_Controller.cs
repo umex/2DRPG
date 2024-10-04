@@ -26,7 +26,14 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     {
         cloneAttackTimer -= Time.deltaTime;
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReleaseCloneAttack();
+        }
+
         CloneAttackLogic();
+
+
 
         if (canGrow && !canShrink)
         {
@@ -44,6 +51,12 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             }
         }
 
+    }
+
+    private void ReleaseCloneAttack()
+    {
+        cloneAttackReleased = true;
+        canCreateHotKeys = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -89,10 +102,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
     private void CloneAttackLogic()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            cloneAttackReleased = true;
-        }
+
 
         if (cloneAttackTimer < 0 && cloneAttackReleased && amountOfAttacks > 0)
         {
