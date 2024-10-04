@@ -12,6 +12,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
     public bool canGrow = true;
     private bool canShrink;
+    private bool canCreateHotKeys = true;
     private bool cloneAttackReleased;
 
     private int amountOfAttacks = 3;
@@ -63,6 +64,11 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             return;
         }
 
+        // so that we prevent creation of a hotkey if 
+        if (cloneAttackReleased) { return; };
+
+
+
         //Quaternion.identity cause we dont want to rotate it
         GameObject newHotKey = Instantiate(hotKeyPrefab, collision.transform.position + new Vector3(0, 2), Quaternion.identity);
         createdHotKey.Add(newHotKey);
@@ -102,6 +108,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3(xOffset, 0));
 
             amountOfAttacks--;
+            Debug.Log("Clone attack");
 
             if (amountOfAttacks <= 0)
             {
