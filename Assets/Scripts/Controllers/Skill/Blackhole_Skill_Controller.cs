@@ -71,6 +71,8 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
         cloneAttackReleased = true;
         canCreateHotKeys = false;
+
+        PlayerManager.instance.player.MakeTransparent(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -152,6 +154,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         DestroyHotKeys();
         canShrink = true;
         cloneAttackReleased = false;
+        PlayerManager.instance.player.MakeTransparent(false);
         PlayerManager.instance.player.ExitBlackHoleAbility();
     }
 

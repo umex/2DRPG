@@ -30,6 +30,7 @@ namespace Assets.Scripts
         public  Animator anim { get; private set; }
         public Rigidbody2D rb { get; private set; }
         public EntityFX fx { get; private set; }
+        public SpriteRenderer sr { get; private set; }
         #endregion
 
         protected virtual void Awake()
@@ -42,6 +43,7 @@ namespace Assets.Scripts
             anim = GetComponentInChildren<Animator>();
             rb = GetComponent<Rigidbody2D>();
             fx = GetComponent<EntityFX>();
+            sr = GetComponentInChildren<SpriteRenderer>();
         }
 
         protected virtual void Update()
@@ -121,5 +123,16 @@ namespace Assets.Scripts
         }
 
         #endregion
+
+        public void MakeTransparent(bool _transparent)
+        {
+            if (_transparent)
+            {
+                sr.color = Color.clear;
+            }
+            else { 
+                sr.color = Color.white;
+            }
+        }
     }
 }
