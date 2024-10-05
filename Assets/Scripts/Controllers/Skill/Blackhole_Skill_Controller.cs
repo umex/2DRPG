@@ -9,6 +9,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     private float maxSize = 15;
     private float growSpeed = 1;
     private float shrinkSpeed = 1;
+    private float blackholeTimer;
 
     public bool canGrow = true;
     private bool canShrink;
@@ -24,18 +25,35 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
     public bool playerCanExitState { get; private set; }
 
-    public void SetupBlackhole(float _maxSize, float _growSpeed, float _shrinkSpeed, int _amountOfAttacks, float _cloneAttackCooldown)
+    public void SetupBlackhole(float _maxSize, float _growSpeed, float _shrinkSpeed, int _amountOfAttacks, float _cloneAttackCooldown, float _blackholeDuration)
     {
         maxSize = _maxSize;
         growSpeed = _growSpeed;
         shrinkSpeed = _shrinkSpeed;
         amountOfAttacks = _amountOfAttacks;
         cloneAttackCooldown = _cloneAttackCooldown;
+
+        blackholeTimer = _blackholeDuration;
     }
 
     private void Update()
     {
         cloneAttackTimer -= Time.deltaTime;
+        blackholeTimer -= Time.deltaTime;
+
+        //if we dont press hotkeys fast enough the blackhole closes anway
+        if (blackholeTimer < 0)
+        {
+            blackholeTimer = Mathf.Infinity;
+
+            if (targets.Count > 0)
+            {
+                ReleaseCloneAttack();
+            }
+            else { 
+                FinishBlackHoleAbility();
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -101,10 +119,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             return;
         }
 
-        // so that we prevent creation of a hotkey if enemy walks later into a blackhole
         if (!canCreateHotKeys) { return; };
-
-
 
         //Quaternion.identity cause we dont want to rotate it
         GameObject newHotKey = Instantiate(hotKeyPrefab, collision.transform.position + new Vector3(0, 2), Quaternion.identity);

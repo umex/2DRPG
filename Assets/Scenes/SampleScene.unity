@@ -597,6 +597,7 @@ MonoBehaviour:
   shrinkSpeed: 6
   amountOfAttacks: 5
   cloneCooldown: 0.35
+  blackholeDuration: 3
 --- !u!1 &431510582
 GameObject:
   m_ObjectHideFlags: 0

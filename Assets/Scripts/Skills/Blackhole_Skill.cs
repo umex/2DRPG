@@ -9,7 +9,8 @@ public class Blackhole_Skill : Skill
     [Space]
     [SerializeField] private int amountOfAttacks;
     [SerializeField] private float cloneCooldown;
-    
+    [SerializeField] private float blackholeDuration;
+
 
     Blackhole_Skill_Controller currentBlackhole;
 
@@ -26,7 +27,7 @@ public class Blackhole_Skill : Skill
 
         currentBlackhole = newBlackHole.GetComponent<Blackhole_Skill_Controller>();
 
-        currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, cloneCooldown);
+        currentBlackhole.SetupBlackhole(maxSize, growSpeed, shrinkSpeed, amountOfAttacks, cloneCooldown, blackholeDuration);
 
     }
 
