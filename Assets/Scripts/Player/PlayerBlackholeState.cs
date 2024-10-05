@@ -52,7 +52,10 @@ public class PlayerBlackholeState : PlayerState
             }
         }
 
-        //WE EXIT STATE in Blackhole_Skill_Controller
+        if (player.skill.blackhole.SkillCompleted()) { 
+            stateMachine.ChangeState(player.airState);
+        }
+
     }
 
     public override void AnimationFinishTrigger()

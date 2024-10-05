@@ -39,4 +39,20 @@ public class Blackhole_Skill : Skill
     {
         base.Update();
     }
+
+    public bool SkillCompleted()
+    {
+        if (!currentBlackhole) { 
+            return false;
+        }
+
+
+        if (currentBlackhole.playerCanExitState)
+        {
+            currentBlackhole = null;
+            return true;
+        }
+
+        return false;
+    }
 }
