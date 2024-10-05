@@ -37,11 +37,16 @@ public class PlayerBlackholeState : PlayerState
         if (stateTimer < 0)
         {
             rb.velocity = new Vector2(0, -.1f);
+
             if (!skillUsed)
             {
-                skillUsed = true;
+                if (player.skill.blackhole.CanUseSkill()) { 
+                    skillUsed = true;
+                }
             }
         }
+
+        //WE EXIT STATE in Blackhole_Skill_Controller
     }
 
     public override void AnimationFinishTrigger()

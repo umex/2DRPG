@@ -2,8 +2,6 @@
 
 public class Blackhole_Skill : Skill
 {
-
-
     [SerializeField] private GameObject blackHolePrefab;
     [SerializeField] private float maxSize;
     [SerializeField] private float growSpeed;

@@ -152,6 +152,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         DestroyHotKeys();
         canShrink = true;
         cloneAttackReleased = false;
+        PlayerManager.instance.player.ExitBlackHoleAbility();
     }
 
     private void DestroyHotKeys()
