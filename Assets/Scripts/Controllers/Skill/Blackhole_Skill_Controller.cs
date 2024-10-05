@@ -64,6 +64,11 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
     private void ReleaseCloneAttack()
     {
+        if (targets.Count <= 0)
+        {
+            return;
+        }
+
         cloneAttackReleased = true;
         canCreateHotKeys = false;
     }
