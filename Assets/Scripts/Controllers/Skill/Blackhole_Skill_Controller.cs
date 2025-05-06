@@ -41,7 +41,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         cloneAttackTimer -= Time.deltaTime;
         blackholeTimer -= Time.deltaTime;
 
-        //if we dont press hotkeys fast enough the blackhole closes anway
+        //if we dont press hotkeys fast enough the blackhole closes anyway after some time
         if (blackholeTimer < 0)
         {
             blackholeTimer = Mathf.Infinity;
