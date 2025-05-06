@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Crystal_Skill : Skill
 {
+    [SerializeField] private float crystalDuration;
     [SerializeField] private GameObject crystalPrefab;
     private GameObject currentCrystal;
 
@@ -11,7 +12,7 @@ public class Crystal_Skill : Skill
 
         if (currentCrystal == null)
         {
-            currentCrystal = Instantiate(crystalPrefab, player.transform.position, Quaternion.identity);
+            CreateCrystal();
         }
         else
         {
@@ -19,5 +20,13 @@ public class Crystal_Skill : Skill
             Destroy(currentCrystal);
         }
         
+    }
+
+    public void CreateCrystal()
+    {
+        currentCrystal = Instantiate(crystalPrefab, player.transform.position, Quaternion.identity);
+        Crystal_Skill_Controller currentCystalScript = currentCrystal.GetComponent<Crystal_Skill_Controller>();
+
+        currentCystalScript.SetupCrystal(crystalDuration);
     }
 }
