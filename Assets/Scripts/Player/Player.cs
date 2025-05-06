@@ -80,6 +80,12 @@ public class Player : Entity
         CheckForDashInput();
         stateMachine.currentState.UpdateState();
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            skill.crystal.CanUseSkill();
+        }
+            
+
         Debug.Log("Is wall detected: " + IsWallDetected());
     }
     public void AssignNewSword(GameObject _newSword)
