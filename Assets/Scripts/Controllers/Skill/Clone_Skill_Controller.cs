@@ -14,6 +14,7 @@ public class Clone_Skill_Controller : MonoBehaviour
 
 
     [SerializeField] private float closestEnemyCheckRadius = 25;
+    [SerializeField] private Transform closestEnemy;
 
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class Clone_Skill_Controller : MonoBehaviour
         }
     }
 
-    public void SetupClone(Transform _newTransform, Vector3 _offset, float _cloneDuration, bool _canAttack)
+    public void SetupClone(Transform _newTransform, Vector3 _offset, float _cloneDuration, bool _canAttack, Transform _closestEnemy)
     {
         if (_canAttack)
             anim.SetInteger("AttackNumber", Random.Range(1, 3));
@@ -45,6 +46,7 @@ public class Clone_Skill_Controller : MonoBehaviour
         transform.position = _newTransform.position + _offset;
         cloneTimer = _cloneDuration;
 
+        closestEnemy = _closestEnemy;
         FaceClosestTarget();
     }
 
@@ -69,10 +71,14 @@ public class Clone_Skill_Controller : MonoBehaviour
     private void FaceClosestTarget()
     {
         // gets all the object in the distance of 25 of player (oir clone in this matter)
-        var closestEnemy = Physics2D.OverlapCircleAll(transform.position, 25)
+        // we dont need this anymore since we moved closestEnemy to setup function
+        /*
+          var closestEnemy = Physics2D.OverlapCircleAll(transform.position, closestEnemyCheckRadius)
             .Where(hit => hit.GetComponent<Enemy>() is not null)
             .OrderBy(hit => Vector2.Distance(transform.position, hit.transform.position))
             .FirstOrDefault();
+        */
+
 
         if (closestEnemy != null)
         {
